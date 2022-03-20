@@ -1,0 +1,37 @@
+#Crear usuarios administradores
+net user smertic
+
+#Añadirlo al grupo de administradores
+net localgroup administradores smertic /add
+
+#Comprobar el SID del equipo
+whoami /user
+
+#Cambiar el nombre del equipo con powershell
+Rename-Computer -Newname "nombre nuevo"
+
+#ver informacion del sistema, version, kernel...
+systeminfo
+
+#Ver la configuracion del reloj y la sincronizacion
+w32tm /query /configuration
+
+#Ver el estado del reloj
+w32tm /query /status
+
+#Ver de donde obtiene la Hora
+w32tm /query /source
+
+#Sincronizar el reloj 
+w32tm /config /manualpeerlist:"0.es.pool.ntp.google.com" /syncfromflags:manual /update
+
+#Comprobar la fecha
+date
+
+#Cambiar la IP estática desde poweshell
+Get-NetAdapter
+New-NetIPAddres -InterfaceIndex "4" -IPAddress "192.168.1.1" -PrefixLength "24" -DefaultGateway "192.168.1.1"
+
+#Desactivar IPv6 dsde powershell
+Get-NetAdapterBinding -ComponentIP ms_tcpip6
+Disable-NetAdapterBinding -Name "Ethernet" -ComponentID ms_tcpip6
